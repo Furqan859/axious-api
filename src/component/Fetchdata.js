@@ -7,24 +7,70 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import axios from 'axios'
 import { useState } from 'react';
+import { Input } from '@mui/material';
 export default function Fetchdata() {
 
     const [user, setUser] = useState([]);
+    const [name, setName] = useState([]);
+    const [username , setUsername] = useState([]);
     const buttonFetch = () => {
 
-        axios.get("https://jsonplaceholder.typicode.com/posts")
+        axios.get("http://restapi.adequateshop.com/api/users/134207")
             .then((response) =>
                 setUser(response.data)
             )
     }
 
+    async function saveUser  (){
+
+
+    const {data} =     await axios.post("http://restapi.adequateshop.com/api/authaccount/login",{
+        "email":"furqanrasool2@gmail.com",
+        "password":"abcdefgh"
+
+        })
+        console.log(data)
+        
+           
+            
+            }
+
+    //     console.warn({name,username}) 
+    //     let valudata = {name,username} 
+    // fetch("https://jsonplaceholder.typicode.com/users",{
+
+    // method: "POST",
+    // headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json'
+    // },
+    // body:JSON.stringify(valudata)
+    // }).then((results)=>{
+    //     // console.warn("results",results)
+    //     results.json().then((res)=>{
+    //         console.warn("res",res)
+    //     })
+    // })
+    
+    
 
 
 
     return (<React.Fragment>
 
+
         <Button variant="outlined" onClick={buttonFetch}>Fetch Data</Button>
 
+
+        <Typography variant="h4">Add Data</Typography>
+        
+        <Typography variant="h6">Tittle</Typography>
+        <Input type="text" placeholder="Enter the Tittle" onChange={(e)=>setName(e.target.value)} />
+
+ <Typography variant="h6">Body</Typography>
+ <Input type="text" placeholder="Enter the Body" onChange={(e)=>setUsername(e.target.value)}/>
+
+ <Button onClick={saveUser}>Add</Button>
         {
             user.map((us) => {
 
